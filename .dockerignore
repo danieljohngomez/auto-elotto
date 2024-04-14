@@ -1,0 +1,5 @@
+README.md
+.env
+node_modules
+cron.log
+start.sh
