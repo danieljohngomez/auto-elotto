@@ -4,8 +4,10 @@
 <h3 align="center">Auto eLotto</h3>
 
   <p align="center">
-    Automated betting system for Philippines' eLotto (PCSO)
+    Automated betting for Philippines' eLotto system (PCSO)
     <br />
+    <a href="https://www.youtube.com/watch?v=WFTISzaTpk0">View Demo</a>
+    ·
     <a href="https://github.com/danieljohngomez/auto-elotto/issues/new?labels=bug">Report Bug</a>
     ·
     <a href="https://github.com/danieljohngomez/auto-elotto/issues/new?labels=enhancement">Request Feature</a>
