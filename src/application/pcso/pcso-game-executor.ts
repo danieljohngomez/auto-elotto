@@ -2,6 +2,7 @@ import {Ticket} from "../../domain/ticket";
 import {Page} from "puppeteer";
 import {Lotto6Of55Ticket} from "../../domain/lotto-6-of-55-ticket";
 import {Config} from "../config";
+import {logger} from "../logger";
 
 export abstract class PcsoGameExecutor<TicketType extends Ticket> {
     protected constructor(readonly gameId: string,
@@ -16,6 +17,7 @@ export abstract class PcsoGameExecutor<TicketType extends Ticket> {
      * Throws an error if a ticket with the same numbers is already in progress. If it is, a lucky pick is returned instead.
      */
     protected async checkSameTicket(ticket: TicketType): Promise<void> {
+        logger.info('Checking for duplicate ticket')
         await this.page.goto(`${Config.pcsoBaseUrl()}/web/member/home`)
         const purchaseHistoryButton = await this.page.waitForSelector('.betting-btn');
         await new Promise(resolve => setTimeout(resolve, 1000));
