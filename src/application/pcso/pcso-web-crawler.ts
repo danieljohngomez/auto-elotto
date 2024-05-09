@@ -11,6 +11,9 @@ import {PcsoGameExecutor} from "./pcso-game-executor";
 import {Pcso655GameExecutor} from "./pcso-6-55-game-executor";
 import {Pcso658GameExecutor} from "./pcso-6-58-game-executor";
 import _ from "lodash";
+import {Pcso649GameExecutor} from "./pcso-6-49-game-executor";
+import {Pcso645GameExecutor} from "./pcso-6-45-game-executor";
+import {Pcso642GameExecutor} from "./pcso-6-42-game-executor";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -33,7 +36,13 @@ export class PcsoWebCrawler {
         });
         const page = await browser.newPage();
         await page.setViewport({width: 1280, height: 720});
-        const gameExecutors = [new Pcso655GameExecutor(page), new Pcso658GameExecutor(page)]
+        const gameExecutors = [
+            new Pcso658GameExecutor(page),
+            new Pcso655GameExecutor(page),
+            new Pcso649GameExecutor(page),
+            new Pcso645GameExecutor(page),
+            new Pcso642GameExecutor(page)
+        ]
         return new PcsoWebCrawler(gameExecutors, notificationService, page);
     }
 
