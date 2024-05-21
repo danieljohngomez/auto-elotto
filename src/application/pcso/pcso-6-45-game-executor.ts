@@ -61,7 +61,7 @@ export class Pcso645GameExecutor extends PcsoGameExecutor<Lotto6Of45Ticket> {
     private async buyTicket(): Promise<void> {
         const gameFrame = await (await this.page.waitForSelector('.lott-iframe')).contentFrame();
 
-        const buyButton = await gameFrame.waitForSelector('.bet-button');
+        const buyButton = await gameFrame.waitForSelector('.betting-button');
         await buyButton.click();
 
         const termsCheckBox = await gameFrame.waitForSelector('#termsChecked');
