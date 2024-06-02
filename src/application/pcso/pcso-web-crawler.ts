@@ -93,13 +93,18 @@ export class PcsoWebCrawler {
     private async checkBalance() {
         logger.info('Checking balance');
         await this.page.goto(`${Config.pcsoBaseUrl()}/web/member/home`, {waitUntil: 'domcontentloaded'})
-        await this.page.waitForFunction(() => {
-            const balanceText = document.querySelector('span.number.refresh-balance').textContent
-            const balance = Number(balanceText);
+        const parseNumber = async (text) => Number(text.replace(/[^\d.-]/g, ''));
+        await this.page.exposeFunction('parseNumber', parseNumber);
+
+        await this.page.waitForFunction(async() => {
+            const text = document.querySelector('span.number.refresh-balance').textContent;
+            // @ts-ignore
+            const balance = await window.parseNumber(text);
+            console.log(balance);
             return !isNaN(balance);
         });
 
-        const balance = await this.page.$eval('span.number.refresh-balance', el => Number(el.textContent));
+        const balance = await this.page.$eval('span.number.refresh-balance', (el) => parseNumber(el.textContent));
         logger.info(`Balance: ${balance}`)
         if (balance <= Config.lowBalanceThreshold()) {
             await this.notificationService.notifyLowBalance(balance);
