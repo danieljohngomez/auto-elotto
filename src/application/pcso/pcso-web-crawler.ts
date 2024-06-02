@@ -48,7 +48,7 @@ export class PcsoWebCrawler {
 
     async crawl(): Promise<void> {
         await this.page.goto(Config.pcsoBaseUrl(), {waitUntil: 'domcontentloaded'});
-        await this.selectNotAMinor();
+        await this.closePopups();
 
         await this.login();
         await this.checkMaxBet();
@@ -62,11 +62,19 @@ export class PcsoWebCrawler {
     /**
      * Selects the "I'm over 18 years old" button
      */
-    private async selectNotAMinor() {
+    private async closePopups() {
         logger.info('Selecting not a minor');
         const notAMinorButton = await this.page.waitForSelector('div.msg-button');
         await notAMinorButton.click();
         await this.page.waitForSelector('div.msg-button', {hidden: true});
+
+        try {
+            const closePromoButton = await this.page.waitForSelector('.promo-notice .close', { timeout: 5000 });
+            await closePromoButton.click();
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        } catch (e) {
+            logger.info('No promo notice found');
+        }
     }
 
     /**
