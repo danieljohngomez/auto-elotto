@@ -75,4 +75,11 @@ export class Config {
     static browserPath(): string {
         return process.env.BROWSER_PATH;
     }
+
+    static crawlerDelay(): { from_seconds: number, to_seconds: number } {
+        return {
+            from_seconds: Number(process.env.CRAWLER_RANDOM_DELAY_FROM_SECONDS || -1),
+            to_seconds: Number(process.env.CRAWLER_RANDOM_DELAY_TO_SECONDS || -1)
+        }
+    }
 }

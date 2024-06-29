@@ -65,6 +65,8 @@ The app will pick the game with the highest winning prize. Currently only 6/58 a
 | TICKET_NUMBERS                        | The numbers to pick when betting separated by comma. This will only take effect if `TICKET_TYPE` is `MANUAL`.                            | No if `TICKET_TYPE` = `MANUAL` |                                          |
 | PCSO_BASE_URL                         | The base URL of PCSO's eLotto website                                                                                                    | Yes                            | `https://elotto.pcso.gov.ph`             |
 | BROWSER_PATH                          | The file path of the web browser to use for crawling                                                                                     | Yes                            | (default browser installed by Puppeteer) |
+| CRAWLER_RANDOM_DELAY_FROM_SECONDS     | Delays the crawler from starting by a random value ranging from this value up to CRAWLER_RANDOM_DELAY_TO_SECONDS seconds                 | Yes                            | -1                                       |
+| CRAWLER_RANDOM_DELAY_TO_SECONDS       | Delays the crawler from starting by a random value ranging from CRAWLER_RANDOM_DELAY_FROM_SECONDS seconds up to this value               | Yes                            | -1                                       |
 
 > [!WARNING]  
 > When running the app with `MANUAL` ticket type, ensure you don't have an existing bet with the same numbers to prevent a duplicate bet.
